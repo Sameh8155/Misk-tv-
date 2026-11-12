@@ -1,0 +1,264 @@
+<!DOCTYPE html><html lang="ar" dir="rtl"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"><title>Misk TV</title>
+<style>
+:root{color-scheme:light;--bg1:#4aa8f0;--bg2:#a9dcfa;--bg3:#1f7fd6;--tx:#0b2a4a;--mu:#35597f;--card:rgba(255,255,255,.62);--ac:#ffb62e;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}*{box-sizing:border-box}
+body{margin:0;min-height:100vh;color:var(--tx);font-family:'Segoe UI',Tahoma,'Noto Naskh Arabic',sans-serif;background:linear-gradient(180deg,var(--bg3),var(--bg1) 40%,var(--bg2) 85%,#e6f6ff) fixed;overflow-x:hidden}
+.sun{position:fixed;top:5vh;left:7vw;width:min(15vw,130px);height:min(15vw,130px);border-radius:50%;background:radial-gradient(circle,#fffbe0 0,#ffe27a 55%,#ffc93c 100%);box-shadow:0 0 0 14px rgba(255,236,150,.28),0 0 70px 28px rgba(255,230,120,.55);pointer-events:none;z-index:0}
+.sky{position:fixed;top:0;left:0;right:0;bottom:0;width:100%;height:100%;overflow:hidden;pointer-events:none;z-index:0}
+.cl{position:absolute;left:0;width:var(--w);-webkit-animation:dr var(--d) linear infinite;height:var(--h);background:#fff;border-radius:999px;opacity:var(--o,.92);filter:drop-shadow(0 8px 10px rgba(40,100,170,.18));animation:dr var(--d) linear infinite;animation-delay:var(--dl);will-change:transform}
+.cl::before,.cl::after{content:"";position:absolute;background:#fff;border-radius:50%}
+.cl::before{width:44%;height:130%;left:14%;top:-62%}.cl::after{width:34%;height:105%;left:50%;top:-42%}
+@-webkit-keyframes dr{from{-webkit-transform:translateX(-45vw)}to{-webkit-transform:translateX(130vw)}}
+@keyframes dr{from{transform:translateX(-45vw)}to{transform:translateX(130vw)}}
+@media(prefers-reduced-motion:reduce){.cl{animation:none;transform:translateX(30vw)}}
+main{position:relative;z-index:1;max-width:1100px;margin:0 auto;padding:20px 22px 110px}
+header{display:flex;justify-content:space-between;align-items:flex-start;gap:16px}
+.clock{font-size:clamp(44px,9vw,84px);font-weight:600;direction:ltr;line-height:1}.clock small{font-size:.32em;color:var(--mu);letter-spacing:2px}
+.info{line-height:1.8;color:var(--mu)}.info b{color:var(--tx);font-size:1.2em}
+button,a{font:inherit;color:inherit;cursor:pointer}
+.bar{display:flex;gap:8px;align-items:center}
+.gear,.mini{background:rgba(255,255,255,.75);border:0;border-radius:24px;min-width:48px;height:48px;padding:0 14px}.gear{font-size:22px}
+.next{margin:22px 0 14px;font-size:clamp(18px,3vw,26px)}.next b{color:#c26a00}.next span{direction:ltr;display:inline-block}
+#al{background:#ffc94d;color:#2a1a00;box-shadow:0 2px 12px rgba(0,0,0,.15);border-radius:12px;padding:12px;margin:10px 0;font-weight:700;text-align:center}
+.times{display:grid;grid-template-columns:repeat(6,1fr);gap:10px}
+.t{background:var(--card);border-radius:14px;padding:12px 4px;text-align:center}.t.on{outline:3px solid #f29900;background:rgba(255,224,130,.75)}.t,.gear,.mini{backdrop-filter:blur(4px);box-shadow:0 2px 10px rgba(30,90,160,.15)}
+.t span{display:block;color:var(--mu);font-size:14px}.t b{display:block;direction:ltr;font-size:clamp(14px,2.4vw,22px)}
+.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:14px;margin-top:28px}
+.card{border:0;border-radius:16px;padding:30px 10px;text-align:center;font-size:clamp(17px,2.4vw,22px);font-weight:600;text-decoration:none;display:block;color:#fff;transition:transform .15s}
+:is(.card,.gear,.mini,select,input):focus{outline:4px solid #0b3a7a;transform:scale(1.04)}
+dialog{background:#f1f9ff;color:var(--tx);border:0;border-radius:18px;width:min(92vw,640px);max-height:88vh;padding:20px;overflow:auto}dialog::backdrop{background:rgba(10,45,90,.45)}
+dialog h2{margin:0 0 12px}.body p{font-family:Amiri,'Noto Naskh Arabic',serif;font-size:clamp(20px,3.4vw,28px);line-height:2.1;margin:14px 0 2px}.c{color:#b36200;font-size:14px}
+label{display:block;margin:12px 0 4px;color:var(--mu)}select,input[type=number]{width:100%;padding:10px;border-radius:10px;border:1px solid #8fbbe3;background:#fff;color:var(--tx);font:inherit}
+.row{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px}.note{font-size:13px;color:var(--mu);margin-top:14px}
+@media(max-width:560px){.times{grid-template-columns:repeat(3,1fr)}.sun{opacity:.7}}
+#bg{position:fixed;top:0;left:0;width:100%;height:100%;object-fit:cover;z-index:0;background:#1f7fd6}
+header{background:rgba(255,255,255,.42);border-radius:18px;padding:12px 18px}
+.brand{font:700 20px/1 'Segoe UI',Tahoma,sans-serif;direction:ltr;color:#0b2a4a;letter-spacing:1px;margin-bottom:6px;text-align:start}
+#tk{position:fixed;left:0;right:0;bottom:0;height:70px;background:rgba(6,32,66,.9);color:#fff;z-index:5;overflow:hidden;direction:ltr;border-top:3px solid #ffb62e}
+#tkl{position:absolute;right:0;top:0;bottom:0;width:190px;background:#ffb62e;color:#2a1a00;font:700 26px/70px 'Segoe UI',Tahoma,'Noto Naskh Arabic',sans-serif;text-align:center;z-index:2;direction:rtl}
+#tkt{position:absolute;left:0;right:190px;top:0;bottom:0;overflow:hidden}
+#tkx{position:absolute;top:0;left:0;line-height:70px;font-size:32px;white-space:nowrap;direction:rtl;font-family:Amiri,'Noto Naskh Arabic','Segoe UI',serif;animation:tk linear infinite;will-change:transform}
+@keyframes tk{from{transform:translateX(-100%)}to{transform:translateX(100vw)}}
+</style></head><body><video id="bg" src="bg.mp4" autoplay muted loop playsinline preload="auto"></video>
+<main>
+<header><div><div class="brand">Misk TV</div><div class="info" id="gr"></div><div class="clock" id="clk"></div></div>
+<div class="info" style="text-align:start"><b id="hj"></b><br><span id="gd"></span><br><span id="pl"></span></div>
+<div class="bar"><button class="mini" id="snd">🔔 فعّل الصوت</button><button class="mini" id="stop" hidden>⏹ إيقاف الأذان</button><button class="gear" id="gb" aria-label="الإعدادات">⚙</button></div></header>
+<div class="next">الصلاة القادمة: <b id="nn"></b> بعد <span id="cd"></span></div>
+<div id="al" hidden></div>
+<div class="times" id="tm"></div>
+<div class="cards">
+<a class="card" style="background:#3f7a6a" href="https://quran.com/18" target="_blank" rel="noopener">سورة الكهف</a>
+<a class="card" style="background:#8a6a4a" href="https://quran.com/2" target="_blank" rel="noopener">سورة البقرة</a>
+<button class="card" style="background:#c0664a" data-k="0">أذكار الصباح</button>
+<button class="card" style="background:#2c3a8c" data-k="1">أذكار المساء</button>
+<button class="card" style="background:#4a6fa8" data-k="2">الرقية الشرعية</button></div>
+</main>
+<div id="tk"><div id="tkl"></div><div id="tkt"><span id="tkx"></span></div></div>
+<dialog id="rd"><h2></h2><div class="body"></div><div class="row"><button class="mini" onclick="this.closest('dialog').close()">إغلاق</button></div></dialog>
+<dialog id="st"><h2>الإعدادات</h2>
+<label>الدولة / المدينة</label><select id="city"></select>
+<div id="cu" hidden><label>خط العرض</label><input type="number" id="la" step="0.01"><label>خط الطول</label><input type="number" id="lo" step="0.01"></div>
+<label>طريقة حساب المواقيت</label><select id="mt"></select>
+<label>العصر</label><select id="as"><option value="1">شافعي / مالكي / حنبلي</option><option value="2">حنفي</option></select>
+<label>تعديل التاريخ الهجري</label><select id="aj"><option value="-1">يوم أقل</option><option value="0">بدون</option><option value="1">يوم أكثر</option></select>
+<label>الأذان عند دخول الوقت</label><select id="on"><option value="1">مفعّل</option><option value="0">متوقف</option></select>
+<label>المؤذن</label><select id="vo"></select><div id="sl"></div><h3>مؤذن مختلف لكل صلاة</h3><div id="pv"></div>
+<div class="row"><button class="mini" id="gp">📍 موقعي الحالي</button><button class="mini" id="ts">▶ تجربة الأذان</button><button class="mini" onclick="this.closest('dialog').close()">تم</button></div>
+<div class="note">المواقيت محسوبة داخل الصفحة بدون إنترنت. قارنها بتقويم مسجد منطقتك. عند الموقع المخصص يُستخدم توقيت جهازك.</div></dialog>
+<script>
+const $=s=>document.querySelector(s);
+const L=`السعودية|مكة المكرمة|21.42|39.83|Asia/Riyadh|umq
+السعودية|المدينة المنورة|24.47|39.61|Asia/Riyadh|umq
+السعودية|جدة|21.54|39.17|Asia/Riyadh|umq
+السعودية|الرياض|24.71|46.68|Asia/Riyadh|umq
+السعودية|الدمام|26.43|50.10|Asia/Riyadh|umq
+مصر|القاهرة|30.04|31.24|Africa/Cairo|egy
+مصر|الإسكندرية|31.20|29.92|Africa/Cairo|egy
+الإمارات|دبي|25.20|55.27|Asia/Dubai|dub
+الإمارات|أبوظبي|24.45|54.38|Asia/Dubai|dub
+قطر|الدوحة|25.29|51.53|Asia/Qatar|qat
+الكويت|الكويت|29.38|47.99|Asia/Kuwait|kuw
+البحرين|المنامة|26.23|50.59|Asia/Bahrain|umq
+عُمان|مسقط|23.59|58.41|Asia/Muscat|khi
+اليمن|صنعاء|15.37|44.19|Asia/Aden|umq
+العراق|بغداد|33.31|44.37|Asia/Baghdad|mwl
+سوريا|دمشق|33.51|36.29|Asia/Damascus|mwl
+لبنان|بيروت|33.89|35.50|Asia/Beirut|mwl
+الأردن|عمّان|31.95|35.93|Asia/Amman|khi
+فلسطين|القدس|31.77|35.21|Asia/Jerusalem|mwl
+ليبيا|طرابلس|32.89|13.19|Africa/Tripoli|mwl
+تونس|تونس|36.80|10.18|Africa/Tunis|mwl
+الجزائر|الجزائر|36.75|3.06|Africa/Algiers|mwl
+المغرب|الرباط|34.02|-6.84|Africa/Casablanca|mor
+المغرب|الدار البيضاء|33.57|-7.59|Africa/Casablanca|mor
+موريتانيا|نواكشوط|18.09|-15.98|Africa/Nouakchott|mwl
+السودان|الخرطوم|15.50|32.56|Africa/Khartoum|egy
+الصومال|مقديشو|2.05|45.32|Africa/Mogadishu|mwl
+تركيا|إسطنبول|41.01|28.98|Europe/Istanbul|tur
+تركيا|أنقرة|39.93|32.86|Europe/Istanbul|tur
+إيران|طهران|35.69|51.39|Asia/Tehran|mwl
+باكستان|إسلام آباد|33.68|73.05|Asia/Karachi|khi
+باكستان|كراتشي|24.86|67.01|Asia/Karachi|khi
+أفغانستان|كابول|34.53|69.17|Asia/Kabul|khi
+الهند|نيودلهي|28.61|77.21|Asia/Kolkata|khi
+بنغلاديش|دكا|23.81|90.41|Asia/Dhaka|khi
+إندونيسيا|جاكرتا|-6.21|106.85|Asia/Jakarta|sgp
+ماليزيا|كوالالمبور|3.14|101.69|Asia/Kuala_Lumpur|sgp
+سنغافورة|سنغافورة|1.35|103.82|Asia/Singapore|sgp
+الصين|بكين|39.90|116.40|Asia/Shanghai|mwl
+اليابان|طوكيو|35.68|139.69|Asia/Tokyo|mwl
+أستراليا|سيدني|-33.87|151.21|Australia/Sydney|mwl
+روسيا|موسكو|55.76|37.62|Europe/Moscow|mwl
+المملكة المتحدة|لندن|51.51|-0.13|Europe/London|mwl
+فرنسا|باريس|48.86|2.35|Europe/Paris|mwl
+ألمانيا|برلين|52.52|13.40|Europe/Berlin|mwl
+إسبانيا|مدريد|40.42|-3.70|Europe/Madrid|mwl
+إيطاليا|روما|41.90|12.50|Europe/Rome|mwl
+هولندا|أمستردام|52.37|4.90|Europe/Amsterdam|mwl
+السويد|ستوكهولم|59.33|18.07|Europe/Stockholm|mwl
+أمريكا|نيويورك|40.71|-74.01|America/New_York|isna
+أمريكا|شيكاغو|41.88|-87.63|America/Chicago|isna
+أمريكا|لوس أنجلوس|34.05|-118.24|America/Los_Angeles|isna
+كندا|تورونتو|43.65|-79.38|America/Toronto|isna
+المكسيك|مكسيكو سيتي|19.43|-99.13|America/Mexico_City|mwl
+البرازيل|ساو باولو|-23.55|-46.63|America/Sao_Paulo|mwl
+جنوب أفريقيا|كيب تاون|-33.92|18.42|Africa/Johannesburg|mwl
+نيجيريا|أبوجا|9.08|7.40|Africa/Lagos|mwl
+السنغال|داكار|14.72|-17.47|Africa/Dakar|mwl
+كينيا|نيروبي|-1.29|36.82|Africa/Nairobi|mwl
+إثيوبيا|أديس أبابا|9.03|38.74|Africa/Addis_Ababa|mwl
+أوزبكستان|طشقند|41.30|69.24|Asia/Tashkent|mwl
+أذربيجان|باكو|40.41|49.87|Asia/Baku|mwl
+البوسنة|سراييفو|43.86|18.41|Europe/Sarajevo|mwl`.split('\n').map(l=>{const a=l.split('|');return{c:a[0],n:a[1],lat:+a[2],lon:+a[3],tz:a[4],m:a[5]}});
+const M={umq:['أم القرى (مكة)',18.5,90,1],mwl:['رابطة العالم الإسلامي',18,17],egy:['الهيئة المصرية',19.5,17.5],khi:['جامعة كراتشي',18,18],isna:['أمريكا الشمالية',15,15],kuw:['الكويت',18,17.5],qat:['قطر',18,90],dub:['دبي',18.2,18.2],tur:['ديانت تركيا',18,17],sgp:['إندونيسيا / سنغافورة',20,18],mor:['المغرب',19,17]};
+const NM=['الفجر','الشروق','الظهر','العصر','المغرب','العشاء'];
+let S={pv:[-1,-1,-1,-1,-1],vo:0,ci:L.findIndex(x=>x.n=='جدة'),m:'auto',asr:1,adj:0,on:1,lat:21.54,lon:39.17,tz:Intl.DateTimeFormat().resolvedOptions().timeZone};
+try{Object.assign(S,JSON.parse(localStorage.getItem('s')||'{}'))}catch(e){}
+const save=()=>{try{localStorage.setItem('s',JSON.stringify(S))}catch(e){}};
+const F={};const fm=(tz,o,l='en-CA')=>{const k=tz+l+JSON.stringify(o);return F[k]||(F[k]=new Intl.DateTimeFormat(l,{timeZone:tz,...o}))};
+const R=Math.PI/180,sn=a=>Math.sin(a*R),cs=a=>Math.cos(a*R);
+function calc(y,m,d,lat,lon,k,asr,ram){
+ const D=Date.UTC(y,m-1,d,12)/864e5+2440587.5-2451545;
+ const g=(357.529+.98560028*D)%360,q=((280.459+.98564736*D)%360+360)%360;
+ const Lg=q+1.915*sn(g)+.02*sn(2*g),e=23.439-3.6e-7*D;
+ let RA=Math.atan2(cs(e)*sn(Lg),cs(Lg))/R/15;RA=(RA+24)%24;
+ const dec=Math.asin(sn(e)*sn(Lg))/R;
+ let eq=q/15-RA;eq=((eq+12)%24+24)%24-12;
+ const noon=12-lon/15-eq;
+ const t=a=>Math.acos((-sn(a)-sn(dec)*sn(lat))/(cs(dec)*cs(lat)))/R/15;
+ const alt=Math.atan(1/(asr+Math.tan(Math.abs(lat-dec)*R)))/R;
+ const ta=Math.acos((sn(alt)-sn(dec)*sn(lat))/(cs(dec)*cs(lat)))/R/15;
+ let fj=noon-t(k[1]),sr=noon-t(.833),ss=noon+t(.833),as=noon+ta,mins=k[2]>=60?(ram&&k[3]?120:k[2]):0;
+ let is=mins?ss+mins/60:noon+t(k[2]);
+ const night=(sr+24-ss)%24;if(isNaN(fj))fj=sr-night/7;if(isNaN(is))is=ss+night/7;
+ return [fj,sr,noon,as,ss,is].map(h=>Math.round((Date.UTC(y,m-1,d)+h*36e5)/6e4)*6e4);
+}
+const place=()=>S.ci>=0?L[S.ci]:{n:'موقع مخصص',lat:S.lat,lon:S.lon,tz:S.tz,m:'mwl'};
+let fired=0,au,ctx;
+function tick(){
+ const p=place(),now=Date.now(),tz=p.tz,k=M[S.m=='auto'?p.m:S.m];
+ const dp=Object.fromEntries(fm(tz,{year:'numeric',month:'numeric',day:'numeric'}).formatToParts(now).map(x=>[x.type,+x.value]));
+ const ram=fm(tz,{month:'numeric'},'en-u-ca-islamic-umalqura').format(now)=='9';
+ const day=o=>{const t=new Date(Date.UTC(dp.year,dp.month-1,dp.day+o));return calc(t.getUTCFullYear(),t.getUTCMonth()+1,t.getUTCDate(),p.lat,p.lon,k,+S.asr,ram)};
+ const td=day(0),tm=day(1),all=[...td,tm[0]];
+ const tf=fm(tz,{hour:'numeric',minute:'2-digit',hour12:true},'en-US');
+ const [hm,ap]=tf.format(now).split(/\s/);
+ $('#clk').innerHTML=hm+' <small>'+ap+'</small>';
+ const h=+fm(tz,{hour:'numeric',hourCycle:'h23'},'en-US').format(now);
+ $('#gr').textContent=h<12?'صباح الخير':'مساء الخير';
+ $('#hj').textContent=fm(tz,{day:'numeric',month:'long',year:'numeric'},'ar-SA-u-ca-islamic-umalqura-nu-latn').format(now+S.adj*864e5);
+ $('#gd').textContent=fm(tz,{weekday:'long',day:'numeric',month:'long'},'ar-u-nu-latn').format(now);
+ $('#pl').textContent=p.n+(S.ci>=0?'، '+p.c:'');
+ const ix=[0,2,3,4,5,6];let ni=ix.find(i=>all[i]>now);const nx=ni%6;
+ const df=Math.max(0,all[ni]-now),pd=n=>String(n).padStart(2,'0');
+ $('#nn').textContent=NM[nx];
+ $('#cd').textContent=pd(Math.floor(df/36e5))+':'+pd(Math.floor(df/6e4)%60)+':'+pd(Math.floor(df/1e3)%60);
+ $('#tm').innerHTML=td.map((v,i)=>`<div class="t${i==nx?' on':''}"><span>${NM[i]}</span><b>${tf.format(v)}</b></div>`).join('');
+ [0,2,3,4,5].forEach(i=>{if(now>=td[i]&&now<td[i]+3e4&&fired!=td[i]){fired=td[i];$('#al').textContent='حان الآن موعد أذان '+NM[i]+' حسب توقيت '+p.n;if(+S.on)auto(i>1?i-1:i)}});
+ $('#al').hidden=!(fired&&now-fired<6e4);
+ try{if(window.MiskNative)$('#stop').hidden=!MiskNative.playing()}catch(e){}
+ ticker(td,now);
+}
+const db=()=>new Promise((a,b)=>{const r=indexedDB.open('a',1);r.onupgradeneeded=()=>r.result.createObjectStore('f');r.onsuccess=()=>a(r.result);r.onerror=b});
+async function saveF(b,i){try{(await db()).transaction('f','readwrite').objectStore('f').put(b,'adhan'+i)}catch(e){}}
+async function loadF(i){try{const d=await db();return await new Promise(r=>{const q=d.transaction('f').objectStore('f').get('adhan'+i);q.onsuccess=()=>r(q.result);q.onerror=()=>r()})}catch(e){}}
+function stopA(){if(au){au.pause();au=null}try{window.MiskNative&&MiskNative.stop()}catch(e){}$('#stop').hidden=true}
+const AF=['makkah','basit1','basit2','mustafa'];
+async function adhan(pi){stopA();
+ try{const v0=S.pv[pi]>=0?S.pv[pi]:S.vo;if(window.MiskNative&&v0<4){MiskNative.play(v0);$('#stop').hidden=false;return}}catch(e){}
+ try{const v=S.pv[pi]>=0?S.pv[pi]:S.vo;const b=v<4?await(await fetch('adhan/'+AF[v]+'.mp3')).blob():await loadF(4);if(b){au=new Audio(URL.createObjectURL(b));await au.play();$('#stop').hidden=false;au.onended=stopA;return}}catch(e){}
+ try{ctx=ctx||new AudioContext();const n=ctx.currentTime;[523,659,784,659,523].forEach((f,i)=>{const o=ctx.createOscillator(),g=ctx.createGain(),t=n+i*.9;o.frequency.value=f;o.connect(g);g.connect(ctx.destination);g.gain.setValueAtTime(.0001,t);g.gain.exponentialRampToValueAtTime(.3,t+.05);g.gain.exponentialRampToValueAtTime(.0001,t+.85);o.start(t);o.stop(t+.9)})}catch(e){}}
+const AK='اللَّهُ لَا إِلَٰهَ إِلَّا هُوَ الْحَيُّ الْقَيُّومُ ۚ لَا تَأْخُذُهُ سِنَةٌ وَلَا نَوْمٌ ۚ لَهُ مَا فِي السَّمَاوَاتِ وَمَا فِي الْأَرْضِ ۗ مَنْ ذَا الَّذِي يَشْفَعُ عِنْدَهُ إِلَّا بِإِذْنِهِ ۚ يَعْلَمُ مَا بَيْنَ أَيْدِيهِمْ وَمَا خَلْفَهُمْ ۖ وَلَا يُحِيطُونَ بِشَيْءٍ مِنْ عِلْمِهِ إِلَّا بِمَا شَاءَ ۚ وَسِعَ كُرْسِيُّهُ السَّمَاوَاتِ وَالْأَرْضَ ۖ وَلَا يَئُودُهُ حِفْظُهُمَا ۚ وَهُوَ الْعَلِيُّ الْعَظِيمُ';
+const SU='قُلْ هُوَ اللَّهُ أَحَدٌ ۞ اللَّهُ الصَّمَدُ ۞ لَمْ يَلِدْ وَلَمْ يُولَدْ ۞ وَلَمْ يَكُنْ لَهُ كُفُوًا أَحَدٌ<br>قُلْ أَعُوذُ بِرَبِّ الْفَلَقِ ۞ مِنْ شَرِّ مَا خَلَقَ ۞ وَمِنْ شَرِّ غَاسِقٍ إِذَا وَقَبَ ۞ وَمِنْ شَرِّ النَّفَّاثَاتِ فِي الْعُقَدِ ۞ وَمِنْ شَرِّ حَاسِدٍ إِذَا حَسَدَ<br>قُلْ أَعُوذُ بِرَبِّ النَّاسِ ۞ مَلِكِ النَّاسِ ۞ إِلَٰهِ النَّاسِ ۞ مِنْ شَرِّ الْوَسْوَاسِ الْخَنَّاسِ ۞ الَّذِي يُوَسْوِسُ فِي صُدُورِ النَّاسِ ۞ مِنَ الْجِنَّةِ وَالنَّاسِ';
+const FA='بِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيمِ ۞ الْحَمْدُ لِلَّهِ رَبِّ الْعَالَمِينَ ۞ الرَّحْمَٰنِ الرَّحِيمِ ۞ مَالِكِ يَوْمِ الدِّينِ ۞ إِيَّاكَ نَعْبُدُ وَإِيَّاكَ نَسْتَعِينُ ۞ اهْدِنَا الصِّرَاطَ الْمُسْتَقِيمَ ۞ صِرَاطَ الَّذِينَ أَنْعَمْتَ عَلَيْهِمْ غَيْرِ الْمَغْضُوبِ عَلَيْهِمْ وَلَا الضَّالِّينَ';
+const DK=e=>[['أَعُوذُ بِاللَّهِ مِنَ الشَّيْطَانِ الرَّجِيمِ<br>'+AK,'مرة واحدة'],[SU,'ثلاث مرات'],
+[(e?'أَمْسَيْنَا وَأَمْسَى':'أَصْبَحْنَا وَأَصْبَحَ')+' الْمُلْكُ لِلَّهِ وَالْحَمْدُ لِلَّهِ، لَا إِلَٰهَ إِلَّا اللَّهُ وَحْدَهُ لَا شَرِيكَ لَهُ، لَهُ الْمُلْكُ وَلَهُ الْحَمْدُ وَهُوَ عَلَىٰ كُلِّ شَيْءٍ قَدِيرٌ','مرة واحدة'],
+['بِسْمِ اللَّهِ الَّذِي لَا يَضُرُّ مَعَ اسْمِهِ شَيْءٌ فِي الْأَرْضِ وَلَا فِي السَّمَاءِ وَهُوَ السَّمِيعُ الْعَلِيمُ','ثلاث مرات'],
+['رَضِيتُ بِاللَّهِ رَبًّا، وَبِالْإِسْلَامِ دِينًا، وَبِمُحَمَّدٍ ﷺ نَبِيًّا','ثلاث مرات'],
+['أَعُوذُ بِكَلِمَاتِ اللَّهِ التَّامَّاتِ مِنْ شَرِّ مَا خَلَقَ','ثلاث مرات'],
+['سُبْحَانَ اللَّهِ وَبِحَمْدِهِ','مئة مرة'],['أَسْتَغْفِرُ اللَّهَ وَأَتُوبُ إِلَيْهِ','مئة مرة']];
+const RQ=[['سورة الفاتحة',FA],['آية الكرسي',AK],['الإخلاص والمعوذتان',SU],['أَذْهِبِ الْبَأْسَ رَبَّ النَّاسِ، وَاشْفِ أَنْتَ الشَّافِي، لَا شِفَاءَ إِلَّا شِفَاؤُكَ، شِفَاءً لَا يُغَادِرُ سَقَمًا','مرة واحدة'],['أَعُوذُ بِكَلِمَاتِ اللَّهِ التَّامَّاتِ مِنْ شَرِّ مَا خَلَقَ','ثلاث مرات']].map(x=>x[0].length<30&&x[1].length>40?[x[1],x[0]]:x);
+const K=[['أذكار الصباح',DK(0)],['أذكار المساء',DK(1)],['الرقية الشرعية',RQ]];
+document.querySelectorAll('[data-k]').forEach(b=>b.onclick=()=>{const [t,it]=K[b.dataset.k],d=$('#rd');d.querySelector('h2').textContent=t;d.querySelector('.body').innerHTML=it.map(x=>`<p>${x[0]}</p><div class="c">${x[1]}</div>`).join('');d.showModal()});
+const cy=$('#city');let g,gc;L.forEach((x,i)=>{if(x.c!=gc){g=document.createElement('optgroup');g.label=gc=x.c;cy.append(g)}g.append(new Option(x.n,i))});cy.append(new Option('موقع مخصص (إحداثيات)',-1));
+$('#mt').append(new Option('تلقائي حسب البلد','auto'));for(const k in M)$('#mt').append(new Option(M[k][0],k));
+function sync(){$('#city').value=S.ci;$('#mt').value=S.m;$('#as').value=S.asr;$('#aj').value=S.adj;$('#on').value=S.on;$('#la').value=S.lat;$('#lo').value=S.lon;$('#cu').hidden=S.ci>=0;$('#vo').value=S.vo;document.querySelectorAll('#pv select').forEach(s=>s.value=S.pv[+s.dataset.p]);save();tick();pushSched()}
+$('#gb').onclick=()=>{$('#st').showModal();chk()};
+$('#city').onchange=e=>{S.ci=+e.target.value;sync()};
+$('#mt').onchange=e=>{S.m=e.target.value;sync()};
+$('#as').onchange=e=>{S.asr=+e.target.value;sync()};
+$('#aj').onchange=e=>{S.adj=+e.target.value;sync()};
+$('#on').onchange=e=>{S.on=+e.target.value;sync()};
+$('#la').onchange=e=>{S.lat=+e.target.value;sync()};
+$('#lo').onchange=e=>{S.lon=+e.target.value;sync()};
+const VN=['أذان الحرم المكي (مكة المكرمة)','الشيخ عبد الباسط عبد الصمد (١)','الشيخ عبد الباسط عبد الصمد (٢)','الشيخ مصطفى إسماعيل','ملف آخر من جهازك'];
+VN.forEach((n,i)=>{$('#vo').append(new Option(n,i));if(i==4)$('#sl').insertAdjacentHTML('beforeend',`<label>اختر ملف أذان من جهازك <span id="ok4"></span></label><input type="file" accept="audio/*" data-i="4">`)});
+$('#sl').onchange=async e=>{const f=e.target.files[0],i=e.target.dataset.i;if(f){await saveF(f,i);$('#ok'+i).textContent='✓ تم الحفظ'}};
+$('#vo').onchange=e=>{S.vo=+e.target.value;sync()};
+const PN=['الفجر','الظهر','العصر','المغرب','العشاء'];
+PN.forEach((n,i)=>{$('#pv').insertAdjacentHTML('beforeend',`<label>${n}</label><select data-p="${i}"><option value="-1">المؤذن الافتراضي</option>${VN.map((v,j)=>`<option value="${j}">${v}</option>`).join('')}</select>`)});
+$('#pv').onchange=e=>{S.pv[+e.target.dataset.p]=+e.target.value;sync()};
+async function chk(){$('#ok4').textContent=(await loadF(4))?'✓ موجود':''}
+$('#ts').onclick=adhan;$('#stop').onclick=stopA;
+$('#gp').onclick=()=>{try{navigator.geolocation.getCurrentPosition(p=>{S.ci=-1;S.lat=+p.coords.latitude.toFixed(3);S.lon=+p.coords.longitude.toFixed(3);S.tz=Intl.DateTimeFormat().resolvedOptions().timeZone;sync()},()=>alert('تعذر تحديد الموقع، اختر مدينتك أو أدخل الإحداثيات'))}catch(e){}};
+document.addEventListener('click',()=>{$('#snd').hidden=true},{once:true});
+
+// ---- تشغيل تلقائي: لو التطبيق أندرويد، الخدمة هي اللي بترفع الأذان (حتى لو الشاشة مقفولة) ----
+function auto(pi){if(window.MiskNative){const v=S.pv[pi]>=0?S.pv[pi]:S.vo;if(v<4)return}adhan(pi)}
+// ---- جدولة أذان ١٤ يوم قدّام وإرسالها للخدمة ----
+function pushSched(){
+ if(!window.MiskNative)return;
+ try{
+  const p=place(),now=Date.now(),k=M[S.m=='auto'?p.m:S.m];
+  const dp=Object.fromEntries(fm(p.tz,{year:'numeric',month:'numeric',day:'numeric'}).formatToParts(now).map(x=>[x.type,+x.value]));
+  const items=[];
+  for(let o=0;o<14;o++){
+   const t=new Date(Date.UTC(dp.year,dp.month-1,dp.day+o));
+   const ram=fm(p.tz,{month:'numeric'},'en-u-ca-islamic-umalqura').format(t.getTime()+12*36e5)=='9';
+   const a=calc(t.getUTCFullYear(),t.getUTCMonth()+1,t.getUTCDate(),p.lat,p.lon,k,+S.asr,ram);
+   [0,2,3,4,5].forEach(i=>{if(a[i]>now){const pi=i>1?i-1:i;items.push({t:a[i],v:S.pv[pi]>=0?S.pv[pi]:S.vo,n:NM[i]})}});
+  }
+  MiskNative.setSchedule(JSON.stringify({on:+S.on,items}));
+ }catch(e){}
+}
+// ---- الشريط المتحرك: أذكار الصباح من الفجر للعصر، وأذكار المساء من العصر لحد الفجر ----
+const TKX=[
+ ['اللَّهُمَّ بِكَ أَصْبَحْنَا وَبِكَ أَمْسَيْنَا وَبِكَ نَحْيَا وَبِكَ نَمُوتُ وَإِلَيْكَ النُّشُورُ','مرة واحدة'],
+ ['اللَّهُمَّ بِكَ أَمْسَيْنَا وَبِكَ أَصْبَحْنَا وَبِكَ نَحْيَا وَبِكَ نَمُوتُ وَإِلَيْكَ الْمَصِيرُ','مرة واحدة'],
+ ['اللَّهُمَّ عَافِنِي فِي بَدَنِي، اللَّهُمَّ عَافِنِي فِي سَمْعِي، اللَّهُمَّ عَافِنِي فِي بَصَرِي، لَا إِلَٰهَ إِلَّا أَنْتَ','ثلاث مرات'],
+ ['حَسْبِيَ اللَّهُ لَا إِلَٰهَ إِلَّا هُوَ عَلَيْهِ تَوَكَّلْتُ وَهُوَ رَبُّ الْعَرْشِ الْعَظِيمِ','سبع مرات'],
+ ['يَا حَيُّ يَا قَيُّومُ بِرَحْمَتِكَ أَسْتَغِيثُ، أَصْلِحْ لِي شَأْنِي كُلَّهُ، وَلَا تَكِلْنِي إِلَىٰ نَفْسِي طَرْفَةَ عَيْنٍ','مرة واحدة']];
+const TK=e=>[e?TKX[1]:TKX[0],...DK(e).slice(2),TKX[2],TKX[3],TKX[4]].map(x=>x[0]+' ('+x[1]+')').join('   ✦   ');
+let tkm=-1;
+function ticker(td,now){
+ const m=(now>=td[0]&&now<td[3])?0:1;
+ if(m===tkm)return;tkm=m;
+ $('#tkl').textContent=m?'أذكار المساء':'أذكار الصباح';
+ const x=$('#tkx');x.textContent=TK(m);
+ x.style.animation='none';void x.offsetWidth;
+ x.style.animation='';x.style.animationDuration=Math.round((x.offsetWidth+innerWidth)/110)+'s';
+}
+if(S.ci>=L.length)S.ci=0;
+sync();setInterval(tick,1000);setInterval(pushSched,36e5);
+</script></body></html>
